@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function placeIPDiv () {
 
 	// Show IP at the bottom left for these websites
 	var noRight = new Array(
@@ -34,4 +34,13 @@ $(document).ready(function() {
 			$(this).addClass("chrome_websiteIP_right");
 		}
 	});
+}
+
+$(document).ready(placeIPDiv);
+
+// If the user presses 'Esc' key before the HTML (yes, HTML only) could
+// fully load, show the IP div as $(document).ready() doesn't execute.
+$(document).keyup(function(e) {
+	if (document.getElementById('chrome_websiteIP') === null && e.keyCode == 27)
+		placeIPDiv();
 });
