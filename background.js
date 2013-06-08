@@ -1,11 +1,3 @@
-// Add icon to URL bar
-function checkForValidUrl(tabId, changeInfo, tab) {
-	chrome.pageAction.show(tab.id);
-};
-
-// Listen for any changes to the URL of any tab
-chrome.tabs.onUpdated.addListener(checkForValidUrl);
-
 // Extract domain name (DN) from URL
 function url2dn (url) {
 	var tmpa = document.createElement('a');
