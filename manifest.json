@@ -26,6 +26,6 @@
 		"run_at": "document_end",
 		"all_frames": true,
 		"js": ["jquery.ip.js", "ip.js"],
-		"css": ["css/ip.css"]
+		"css": ["ip.css"]
 	}]
 }
