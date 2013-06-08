@@ -1,34 +1,29 @@
-// Set variables
-var websiteIP_status, setPosition;
-var url = window.location.host;
-
 $(document).ready(function() {
-	
-	// Set position to left for these websites
-	var noRight = new Array();
-		noRight[0] = "www.facebook.com";
-		noRight[1] = "www.google.com";
-		
-	//Check if on noRight array and set position accordingly
-	var noRightCheck = $.inArray(url, noRight);
-	
-	if (noRightCheck >= 0) {
-		setPosition = "left";
+
+	// Show IP at the bottom left for these websites
+	var noRight = new Array(
+		"www.facebook.com",
+		"www.google.com"
+	);
+
+	var div_align;
+	if ($.inArray(window.location.host, noRight) >= 0) {
+		div_align = "left";
 	}
 	else {
-		setPosition = "right";
+		div_align = "right";
 	}
-	
-	chrome.extension.sendMessage({name: "getIP"}, function(response) {
-		var finalIP = response.domainToIP;
-		chrome.extension.sendMessage({name: "getOptions"}, function(response) {
-			var websiteIP_status = response.enableDisableIP;
-			if (websiteIP_status == "Disable" || typeof websiteIP_status == 'undefined') {
-				$("body").append('<div id="chrome_websiteIP" class="chrome_websiteIP_' + setPosition + '">' + finalIP + '</div>');
+
+	chrome.extension.sendMessage({op: "getip"}, function(response) {
+		var ip = response.ip;
+		chrome.extension.sendMessage({op: "is_enabled"}, function(response) {
+			var ext_enabled = response.ext_enabled;
+			if (ext_enabled == 1 || ext_enabled === undefined) {
+				$("body").append('<div id="chrome_websiteIP" class="chrome_websiteIP_' + div_align + '">' + ip + '</div>');
 			}
 		});
 	});
-	
+
 	$("#chrome_websiteIP").live('mouseover', function() {
 		if ($(this).hasClass('chrome_websiteIP_right')) {
 			$(this).removeClass("chrome_websiteIP_right");
@@ -39,21 +34,7 @@ $(document).ready(function() {
 			$(this).addClass("chrome_websiteIP_right");
 		}
 	});
-	
-	loadOptions(); //To set default value on pop-up button
-
 });
-
-function loadOptions() {
-	chrome.extension.sendMessage({name: "getOptions"}, function(response) {
-		var enableDisableIP = response.enableDisableIP;
-		
-		// set default as disabled
-		if (typeof enableDisableIP == 'undefined') {
-			chrome.extension.sendMessage({name: "setOptions", status: 'Disable'}, function(response) {});
-		}
-	});
-}
 
 // popup button clicked
 document.addEventListener('DOMContentLoaded', function () {
