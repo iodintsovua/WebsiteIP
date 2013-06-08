@@ -35,23 +35,3 @@ $(document).ready(function() {
 		}
 	});
 });
-
-// popup button clicked
-document.addEventListener('DOMContentLoaded', function () {
-	chrome.extension.sendMessage({name: "getOptions"}, function(response) {
-		$("#EnableDisableIP").val(response.enableDisableIP);
-	});
-	
-	document.querySelector('input').addEventListener('click', function() {
-		if ($('#EnableDisableIP').val() == "Disable") {
-			// save to localstore
-			chrome.extension.sendMessage({name: "setOptions", status: 'Enable'}, function(response) {});
-			$('#EnableDisableIP').val('Enable')	
-		}
-		else if ($('#EnableDisableIP').val() == "Enable") {
-			// save to localstore
-			chrome.extension.sendMessage({name: "setOptions", status: 'Disable'}, function(response) {});
-			$('#EnableDisableIP').val('Disable')
-		}
-	});
-});

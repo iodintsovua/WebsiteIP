@@ -57,3 +57,15 @@ chrome.extension.onMessage.addListener(
 		}
 	}
 );
+
+chrome.browserAction.onClicked.addListener(function (t) {
+	e = localStorage["ext_enabled"];
+	if (e == 1) {
+		iconDetails = {path: "/images/icon19_grey_stop.png"};
+
+	} else {
+		iconDetails = {path: "/images/icon19.png"};
+	}
+	chrome.browserAction.setIcon(iconDetails, null);
+	localStorage["ext_enabled"] = 1 - e;
+});
