@@ -10,17 +10,18 @@ It's simple, but it solves your problems and saves your ass.
 TODOs
 --------
 
-This fork plans to clean the code and add some features.
+This fork plans to clean up the code and add some features
+(strikethroughs are done).
 
-* Copy IP to clipboard --- raised by the original author [Craig Thomas](https://github.com/tinybigideas).
-  I am thinking of binding it to a shortcut key.
+* ~~Copy IP to clipboard --- raised by the original author [Craig Thomas](https://github.com/tinybigideas).
+  I am thinking of binding it to a shortcut key.~~
 * Things that ought to be configurable:
   - *all_frames* : show IP on all frames or only the top frame?
   - *run_at* : `document_start` or `document_end`?
   - *the div* : show on the left or the right by default? with exceptions?
-* Remove the popup. Just use different icons.
-* Not sure if this is doable, but I want the IP still showed if I press 'Esc'
-  when the page is loading (TCP reset).
+* ~~Remove the popup. Just use different icons.~~
+* ~~Not sure if this is doable, but I want the IP still showed if I press 'Esc'
+  when the page is loading (TCP reset).~~
 
 Project page
 --------
