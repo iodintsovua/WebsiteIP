@@ -43,4 +43,9 @@ $(document).ready(placeIPDiv);
 $(document).keyup(function(e) {
 	if (document.getElementById('chrome_websiteIP') === null && e.keyCode == 27)
 		placeIPDiv();
+
+	else if (e.keyCode == 113) {
+		window.prompt('IP of "' + window.location.host + '":',
+					  document.getElementById('chrome_websiteIP').innerText);
+	}
 });
