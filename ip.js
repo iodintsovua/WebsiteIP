@@ -2,16 +2,18 @@ function placeIPDiv () {
 
 	// Show IP at the bottom left for these websites
 	var noRight = new Array(
+		"mail.google.com",
+		"www.google.com.*",
 		"www.facebook.com",
-		"www.google.com"
+		".*renren.com"
 	);
 
-	var div_align;
-	if ($.inArray(window.location.host, noRight) >= 0) {
-		div_align = "left";
-	}
-	else {
-		div_align = "right";
+	var div_align = "right";
+	for (var idx in noRight) {
+		if (window.location.host.match(noRight[idx])) {
+			div_align = "left";
+			break;
+		}
 	}
 
 	chrome.extension.sendMessage({op: "getip"}, function(response) {
@@ -38,9 +40,9 @@ function placeIPDiv () {
 
 $(document).ready(placeIPDiv);
 
-// If the user presses 'Esc' key before the HTML (yes, HTML only) could
-// fully load, show the IP div as $(document).ready() doesn't execute.
 $(document).keyup(function(e) {
+	// If the 'Esc' key is pressed before the HTML (yes, HTML only) could
+	// fully load, show the IP <div> as $(document).ready() doesn't execute.
 	if (document.getElementById('chrome_websiteIP') === null && e.keyCode == 27)
 		placeIPDiv();
 
