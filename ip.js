@@ -40,14 +40,29 @@ function placeIPDiv () {
 
 $(document).ready(placeIPDiv);
 
+window.lastKeyCode = 0;
+window.lastHitTime = new Date();
+
 $(document).keyup(function(e) {
 	// If the 'Esc' key is pressed before the HTML (yes, HTML only) could
 	// fully load, show the IP <div> as $(document).ready() doesn't execute.
-	if (document.getElementById('chrome_websiteIP') === null && e.keyCode == 27)
+	if (document.getElementById('chrome_websiteIP') === null &&
+	    e.keyCode == 27) {
 		placeIPDiv();
 
-	else if (e.keyCode == 113) {
-		window.prompt('IP of "' + window.location.host + '":',
-					  document.getElementById('chrome_websiteIP').innerText);
+	} else {
+		now = new Date();
+		timeDiff = now - window.lastHitTime;
+		window.lastHitTime = now;
+
+		if (e.keyCode == 113 &&
+		    window.lastKeyCode == 113 &&  // 2 "F2" keystrokes
+		    timeDiff < 900) {             // within 900ms
+			window.lastKeyCode = 0;
+			window.prompt('IP of "' + window.location.host + '":',
+			              document.getElementById('chrome_websiteIP').innerText);
+		}
 	}
+
+	window.lastKeyCode = e.keyCode;
 });

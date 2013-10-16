@@ -1,6 +1,6 @@
 {
 	"name": "Website IP",
-	"version": "10.3.0",
+	"version": "10.4.0",
 	"minimum_chrome_version": "18",
 	"manifest_version": 2,
 	"description": "Show the IP of the current website at the bottom right.",
@@ -24,7 +24,7 @@
 	"content_scripts": [{
 		"matches": ["ftp://*/*", "http://*/*", "https://*/*"],
 		"run_at": "document_end",
-		"all_frames": true,
+		"all_frames": false,
 		"js": ["jquery.ip.js", "ip.js"],
 		"css": ["ip.css"]
 	}]
